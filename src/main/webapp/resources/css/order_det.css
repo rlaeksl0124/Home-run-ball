@@ -35,6 +35,11 @@
     color: black;
 }
 
+.order-amount:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .tb__order th,
 .tb__order td {
     text-align: center;

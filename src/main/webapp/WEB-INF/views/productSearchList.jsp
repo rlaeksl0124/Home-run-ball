@@ -26,7 +26,6 @@
           padding-bottom: 100%;
           max-width: 428px;
           max-height: 428px;
-          background-color: #EBEBEB;
         }
 
         picture > img{
