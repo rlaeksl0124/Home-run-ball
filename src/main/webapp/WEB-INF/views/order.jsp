@@ -259,6 +259,34 @@
         margin-left: 10px;
     }
 </style>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const pd_names = [];
+
+    /* JSTL로 cartDto 목록을 반복하여 JavaScript 객체로 저장 */
+    <c:forEach var="cartDto" items="${list}" varStatus="status">
+    pd_names.push({
+      name: "${cartDto.pd_name}",
+      index: ${status.index}
+    });
+    </c:forEach>
+
+    if (pd_names.length > 0) {
+      const firstItemName = pd_names[0].name;
+      const extraItemCount = pd_names.length - 1;
+      let newOrderName = '';
+
+      if (extraItemCount > 0) {
+        newOrderName = `${'${firstItemName}'} 외 ${'${extraItemCount}'}건`;
+      } else {
+        newOrderName = `${'${firstItemName}'}`;
+      }
+
+      /* hidden 출력 */
+      document.querySelector('#newOrderName').textContent = newOrderName;
+    }
+  });
+</script>
 <%-- 김수연 끝 --%>
 <body>
 <jsp:include page="header.jsp"/>
@@ -279,7 +307,9 @@
 
         <%-- TODO: 150 --%>
         <div class="dlv-header">
-            <div  style="width: 150px">배송정보</div>
+            <div  style="width: 150px">
+                <i class="fas fa-truck "> 배송 </i>
+            </div>
             <!-- 배송지 변경 버튼 -->
             <button class="btn-change-address">배송지 변경</button>
         </div>
@@ -343,7 +373,9 @@
 </div>
 <section class="order__items">
     <hr class="first__under"/>
-    <div class="title__order">제품정보</div>
+    <div class="title__order">
+        <i class="fas fa-box-open "> 제품 </i>
+    </div>
     <div class="tb__order">
         <form action="/order">
             <table>
@@ -413,8 +445,11 @@
     </div>
 </section>
 <%-- 결제 위젯 호출 --%>
+<div class="title__order">
+    <i class="far fa-credit-card " style="font-weight: 900;"> 결제 </i>
+</div>
 <section class="order__payment">
-    <div class="order__payment__wrapper">
+    <div class="order__payment__wrapper" style="margin-top: 0">
     <%@include file="payCheckout.jsp" %>
     <%-- 2024.05.27 [혁락] grid 관련 추가 --%>
     <div class="tb__right">
@@ -448,6 +483,7 @@
             최종 결제 금액
             <span class="priceFormat" id="odpayamt">${ord.od_pay_amt}</span>
             <input type="hidden" id="amount" value="${ord.od_pay_amt}"/>
+            <input type="hidden" id="newOrderName" value="${ord.od_pay_amt}"/>
         </div>
     </div>
     </div>
