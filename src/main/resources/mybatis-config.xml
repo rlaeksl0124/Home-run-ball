@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <typeAliases>
     <typeAlias alias="CustDto" type="com.homerunball.customer.domain.CustDto"/>
@@ -12,7 +12,7 @@
     <typeAlias alias="OrderDetDto" type="com.homerunball.order.domain.OrderDetDto"/>
     <typeAlias alias="OrderStatDto" type="com.homerunball.order.domain.OrderStatDto"/>
     <typeAlias alias="OrdAndStkDto" type="com.homerunball.order.domain.OrdAndStkDto"/>
-<!--    <typeAlias alias="OrderHistDto" type="com.homerunball.order.domain.OrderHistDto"/>-->
+    <!--    <typeAlias alias="OrderHistDto" type="com.homerunball.order.domain.OrderHistDto"/>-->
     <typeAlias alias="PaymentDto" type="com.homerunball.payment.domain.PaymentDto"/>
     <typeAlias alias="PaymentFailDto" type="com.homerunball.payment.domain.PaymentFailDto"/>
     <typeAlias alias="StockDto" type="com.homerunball.admin.stock.domain.StockDto"/>
@@ -22,5 +22,7 @@
     <typeAlias alias="prdDetViewDto" type="com.homerunball.product.customer.domain.PrdDetViewDto"/>
     <typeAlias alias="deliveryDto" type="com.homerunball.delivery.domain.DeliveryDto"/>
     <typeAlias alias="SizeDto" type="com.homerunball.admin.stock.domain.SizeDto"/>
+    <typeAlias alias="InqDto" type="com.homerunball.inq.domain.InqDto"/>
+    <typeAlias alias="ReviewDto" type="com.homerunball.review.domain.ReviewDto"/>
   </typeAliases>
 </configuration>

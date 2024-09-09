@@ -3,66 +3,99 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.homerunball.review.dao.ReviewDao">
-  <select id="selectAllReviews" parameterType="int" resultType="HashMap">
-        select * from revw where pd_id = #{pd_id};
+
+<!--  <select id="selectAllReviews" parameterType="int" resultType="HashMap">-->
+<!--        select * from revw where pd_id = #{pd_id};-->
+<!--  </select>-->
+
+
+
+<!--  전체 게시물 숫자  -->
+    <select id="selectCount" resultType="int">
+        select count(*)
+        from revw
+    </select>
+
+
+<!--  리뷰 게시물 전체 목록 읽기  -->
+    <select id="selectAll" parameterType="String" resultType="ReviewDto">
+        select r.revw_id,
+               r.pd_id,
+               r.c_id,
+               r.revw_cntn,
+               r.revw_attch_name,
+               r.revw_dt,
+               r.revw_score,
+               r.revw_is_reported,
+               c.c_name
+        from revw r
+                 join cust c on r.c_id = c.c_id
+        where r.pd_id = #{pd_id}
+        order by r.revw_id desc
+    </select>
+
+<!--  게시물 seq == param:bno 하나 읽기  -->
+  <select id="selectOne" parameterType="map" resultType="ReviewDto">
+      select r.revw_id,
+             r.pd_id,
+             r.c_id,
+             r.revw_cntn,
+             r.revw_attch_name,
+             r.revw_dt,
+             r.revw_score,
+             r.revw_is_reported,
+             c.c_name
+      from revw r, cust c
+      where r.pd_id = #{pd_id}
+        and r.revw_id = #{revw_id}
+        and r.c_id = #{c_id}
   </select>
-<!--&lt;!&ndash;  게시물 page로  읽기  &ndash;&gt;-->
-<!--  <select id="selectPosts" parameterType="int" resultType="HashMap">-->
-<!--    select seq-->
-<!--          ,title-->
-<!--          ,username-->
-<!--          ,registerdate-->
-<!--          ,viewcount-->
-<!--    from boardtest-->
-<!--    limit 10-->
-<!--    offset #{0}-->
-<!--  </select>-->
 
-<!--&lt;!&ndash;  게시물 seq == param:bno 하나 읽기  &ndash;&gt;-->
-<!--  <select id="readOne" parameterType="int" resultType="BoardDto">-->
-<!--    select *-->
-<!--    from boardtest-->
-<!--    where seq = #{0}-->
-<!--  </select>-->
 
-<!--&lt;!&ndash;  게시물 seq == param:bno 조회수 1 증가  &ndash;&gt;-->
-<!--  <update id="increaseViewCount" parameterType="int" >-->
-<!--    update boardtest-->
-<!--    set viewcount = viewcount+1-->
-<!--    where seq = #{0}-->
-<!--  </update>-->
-<!--&lt;!&ndash; 게시물 seq == param:bno 글 삭제 &ndash;&gt;-->
-<!--  <delete id="deletePost" parameterType="int">-->
-<!--    delete from boardtest-->
-<!--    where seq = #{0}-->
-<!--  </delete>-->
+<!--  게시물 작성하기 위한 저장  -->
+  <insert id="reviewWriteOne" parameterType="ReviewDto" >
+    insert into revw
+        (pd_id, c_id, revw_cntn, revw_attch_name, revw_dt, revw_score)
+    values
+        (#{pd_id}, #{c_id}, #{revw_cntn}, #{revw_attch_name}, now(), #{revw_score})
+  </insert>
 
-<!--  <update id="updatePost" parameterType="BoardDto" >-->
+    <!-- 리뷰 한건 삭제 -->
+    <delete id="deleteOne" parameterType="Map" >
+        delete from revw where revw_id=#{revw_id} and c_id=#{c_id}
+    </delete>
 
-<!--    update boardtest SET  title = #{title}-->
-<!--                       ,content = #{content}-->
-<!--                     where  seq = ${seq};-->
-<!--  </update>-->
+    <!-- 리뷰 전체 삭제  -->
+    <delete id="deleteAll">
+        delete from revw
+    </delete>
 
-<!--&lt;!&ndash;  게시물 작성하기 위한 저장  &ndash;&gt;-->
-<!--  <insert id="writeOne" parameterType="BoardDto" >-->
-<!--    insert into boardtest (  title,    username ,   content)-->
-<!--                values    (#{title}, #{username}, #{content});-->
-<!--  </insert>-->
+    <!-- 리뷰 수정 -->
+    <update id="update" parameterType="ReviewDto">
+        update revw
+        set revw_cntn = #{revw_cntn},
+            revw_dt = now()
+        where pd_id=#{pd_id} and revw_id = #{revw_id} and c_id = #{c_id}
+    </update>
 
-<!--  &lt;!&ndash;-->
-<!--C 쓰기 GET, POST  :: 보여주기, 저장하기-->
-<!--      select * from boardtest where seq = ??;-->
-<!--      insert into boardtest (title, username , content) values("", "", "");-->
-<!--R 읽기 GET        :: 읽어오기-->
-<!--      select * from boardtest where seq = ??;-->
-<!--U 수정 GET, PUT   :: 읽어오기, 저장하기-->
-<!--D 삭제 DEL        :: 삭제하기-->
-<!--&ndash;&gt;-->
 
-<!--&lt;!&ndash;  전체 게시물 숫자  &ndash;&gt;-->
-<!--  <select id="selectCount" resultType="int">-->
-<!--    select count(*)-->
-<!--    from boardtest-->
-<!--  </select>-->
+
+  <!--
+C 쓰기 GET, POST  :: 보여주기, 저장하기
+      select * from boardtest where seq = ??;
+      insert into boardtest (title, username , content) values("", "", "");
+R 읽기 GET        :: 읽어오기
+      select * from boardtest where seq = ??;
+U 수정 GET, PUT   :: 읽어오기, 저장하기
+D 삭제 DEL        :: 삭제하기
+-->
+
+    <!--  게시물 seq == param:bno 조회수 1 증가  -->
+<!--    <update id="increaseViewCount" parameterType="int" >-->
+<!--        update boardtest-->
+<!--        set viewcount = viewcount+1-->
+<!--        where seq = #{0}-->
+<!--    </update>-->
+
+
 </mapper>

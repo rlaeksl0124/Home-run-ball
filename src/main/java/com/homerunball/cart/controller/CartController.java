@@ -58,15 +58,15 @@ public class CartController {
         return "redirect:/cart/list";
     }
 
-    @PostMapping("/selectRemove")
-    public String selectRemove(CartDto cartDto, int c_id, Model m){
-        try {
-//            cartDao.delete(cartDto.getC_id())
-        } catch (Exception e){
-
-        }
-        return "redirect:/cart/list";
-    }
+//    @PostMapping("/selectRemove")
+//    public String selectRemove(CartDto cartDto, int c_id, Model m){
+//        try {
+////            cartDao.delete(cartDto.getC_id())
+//        } catch (Exception e){
+//
+//        }
+//        return "redirect:/cart/list";
+//    }
 
 
     /* 고객 한명의 장바구니 전체삭제 */
@@ -107,6 +107,7 @@ public class CartController {
 
 
 
+    /* 고객 장바구니 추가 */
     @PostMapping("/insert")
     public String insert(CartDto cartDto, String mn_img_fn, String pd_id, String pd_type_cd ,String pd_clsf_cd, Model m, HttpSession session, RedirectAttributes rattr) {
         try {

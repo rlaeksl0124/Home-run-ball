@@ -29,11 +29,11 @@
 <%--넘겨줄 정보를 담는다--%>
 <form id="purchaseInfo" method="post">
     <div class="productMainContainer">
-<%--    상단 왼쪽에 위치한 대표이미지--%>
+        <%--    상단 왼쪽에 위치한 대표이미지--%>
         <div class="productItemMnImg" id="mnImg">
-                <img src="/img/product/${prd.pd_type_cd}/main/${prd.mn_img_fn}"
-                     alt="이미지 준비 중 입니다"
-                     onerror="this.onerror=null; this.src='/img/product/${prd.pd_type_cd.toLowerCase()}/main/${prd.mn_img_fn}';">
+            <img src="/img/product/${prd.pd_type_cd}/main/${prd.mn_img_fn}"
+                 alt="이미지 준비 중 입니다"
+                 onerror="this.onerror=null; this.src='/img/product/${prd.pd_type_cd.toLowerCase()}/main/${prd.mn_img_fn}';">
         </div>
         <div class="productItemDsc">
             <div class="prdDetailTitle">
@@ -58,14 +58,14 @@
                 </div>
                 <div class="content">
                     <ul class="contentList">
-<%--                        옵션--%>
+                        <%--                        옵션--%>
                         <li><select id="mySelect" name="selectedOption">
                             <%--                   서버에서 list를 가져와서 가지고 있는 속성을 옵션으로 만든다--%>
                             <%--                   listStkOpt는 재고테이블을 리스트로 읽어옵니다--%>
                             <c:forEach var="option" items="${listStkOpt}">
                                 <option value="${option.pd_clsf_cd}">${option.pd_clsf_cd}</option>
                             </c:forEach>
-<%--                        가격--%>
+                            <%--                        가격--%>
                         </select></li>
                         <li><select id="mySelect2">
                             <option>선택</option>
@@ -73,7 +73,7 @@
                             <option>선물박스</option>
                         </select></li>
                         <li class="prcDis"><span id="retail-price"><span id="rtl_prc">${stkInfo.rtl_prc}</span></span><span id="sale-price"><span id="sls_prc"> ${stkInfo.sls_prc}</span></span>원</li>
-<%--                        <li>무료배송</li>--%>
+                        <%--                        <li>무료배송</li>--%>
                     </ul>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                 <ul>
                     <li class="cartBtnList">
                         <button type="button" class="submitBtn" onclick="submitForm('cart')">
-                           장바구니 담기 <ion-icon name="bag-outline"></ion-icon>
+                            장바구니 담기 <ion-icon name="bag-outline"></ion-icon>
                         </button>
                     </li>
                     <li class="wishBtnList">
@@ -103,19 +103,19 @@
                     </li>
                 </ul>
             </div>
-<%--            input으로 필요한 정보 pd_id, pd_clsf_cd를 넘겨준다.--%>
-                <input id="pd_id" name="pd_id" value="${stkInfo.pd_id}" style="display: none">
-                <input id="pd_clsf_cd" name="pd_clsf_cd" style="display: none">
-                <input id="mn_img_fn" name="mn_img_fn" value="${prd.mn_img_fn}" style="display: none">
-                <input id="pd_type_cd" name="pd_type_cd" value="${prd.pd_type_cd}" style="display: none">
+            <%--            input으로 필요한 정보 pd_id, pd_clsf_cd를 넘겨준다.--%>
+            <input id="pd_id" name="pd_id" value="${stkInfo.pd_id}" style="display: none">
+            <input id="pd_clsf_cd" name="pd_clsf_cd" style="display: none">
+            <input id="mn_img_fn" name="mn_img_fn" value="${prd.mn_img_fn}" style="display: none">
+            <input id="pd_type_cd" name="pd_type_cd" value="${prd.pd_type_cd}" style="display: none">
 
-<%--            프로모션 정보--%>
+            <%--            프로모션 정보--%>
             <div class="prdDtlInfo">
                 <p><ion-icon name="rocket-outline"></ion-icon> 5만원 이상 구매시 무료배송</p>
                 <p><ion-icon name="create-outline"></ion-icon> 리뷰 작성시 적립금 지급</p>
                 <p><ion-icon name="diamond-outline"></ion-icon> 등급별 최대 10% 할인</p>
             </div>
-<%--            토글메뉴--%>
+            <%--            토글메뉴--%>
             <div class="prdContainer">
                 <input type="checkbox" id="toggle1" class="toggle" hidden>
                 <label for="toggle1" class="prdLabel">
@@ -231,37 +231,46 @@
         <a href="">&gt</a></p>
     <button class="writeReviewBtn" onclick="writeReviewBtn()">리뷰작성</button>
 </div>
+<%--<%@include file="inquiry.jsp"%>--%>
+<jsp:include page="inquiry.jsp" flush="true"/>
 
 <%--제품 문의(구현 안함 3차때 추후 개발예정)--%>
-<div class="QnAContainer" id="QnAContainer">
-    <h2>제품문의</h2>
-    <table class="QnATable" name="QnATable">
-        <tr><th>일련번호</th><th>내용</th><th>작성자</th><th>작성일자</th><th>답변여부</th></tr>
-        <tr><td>10</td><td>DP 제품 할인은 안 하나요?</td><td>김지훈</td><td>2024.05.27</td><td>답변대기중</td></tr>
-        <tr><td>9</td><td>배송 문의드립니다. 급해서 그런데 혹시 오늘 회사에 방문하면 제품을 바로 받을수 있을까요?</td><td>김지훈</td><td>2024.05.27</td><td>답변대기중</td></tr>
-        <tr><td>8</td><td>배송 문의드립니다. 오늘 시키면 언제 제품을 받을수 있을까요?</td><td>김지훈</td><td>2024.05.26</td><td>답변대기중</td></tr>
-        <tr><td>7</td><td>AS보증 기간이 어떻게 되나요?</td><td>김지훈</td><td>2024.05.26</td><td>답변대기중</td></tr>
-        <tr><td>6</td><td>무게가 어떻게 되나요?</td><td>김지훈</td><td>2024.05.26</td><td>답변대기중</td></tr>
-        <tr><td>5</td><td>단체 주문도 가능할까요?</td><td>김지훈</td><td>2024.05.25</td><td>답변완료✔</td></tr>
-        <tr><td>4</td><td>색상 문의 드립니다.</td><td>김지훈</td><td>2024.05.24</td><td>답변완료✔</td></tr>
-        <tr><td>3</td><td>사이즈 문의 드립니다.</td><td>김지훈</td><td>2024.05.23</td><td>답변완료✔</td></tr>
-        <tr><td>2</td><td>제품의 추가 입고는 언제되나요?</td><td>김지훈</td><td>2024.05.22</td><td>답변대기중</td></tr>
-        <tr><td>1</td><td>제품 문의 드립니다.</td><td>김지훈</td><td>2024.05.21</td><td>답변완료✔</td></tr>
-    </table>
-    <p> <a href="">&lt</a>
-        <a href="">1</a>
-        <a href="">2</a>
-        <a href="">3</a>
-        <a href="">4</a>
-        <a href="">5</a>
-        <a href="">6</a>
-        <a href="">7</a>
-        <a href="">8</a>
-        <a href="">9</a>
-        <a href="">10</a>
-        <a href="">&gt</a></p>
-    <button class="writeQnABtn" onclick="writeQnABtn()">제품문의작성</button>
-</div>
+<%--<div class="QnAContainer" id="QnAContainer">--%>
+<%--    <h2>제품문의</h2>--%>
+<%--    <table class="QnATable" name="QnATable">--%>
+<%--        <tr>--%>
+<%--            <td class="number">일련번호</td>--%>
+<%--            <td class="title">제목</td>--%>
+<%--            <td class="writer">작성자</td>--%>
+<%--            <td class="regdate">등록일</td>--%>
+<%--        </tr>--%>
+
+<%--&lt;%&ndash;        <tr><th>일련번호</th><th>내용</th><th>작성자</th><th>작성일자</th><th>답변여부</th></tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <tr><td>10</td><td>DP 제품 할인은 안 하나요?</td><td>김지훈</td><td>2024.05.27</td><td>답변대기중</td></tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <tr><td>9</td><td>배송 문의드립니다. 급해서 그런데 혹시 오늘 회사에 방문하면 제품을 바로 받을수 있을까요?</td><td>김지훈</td><td>2024.05.27</td><td>답변대기중</td></tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <tr><td>8</td><td>배송 문의드립니다. 오늘 시키면 언제 제품을 받을수 있을까요?</td><td>김지훈</td><td>2024.05.26</td><td>답변대기중</td></tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <tr><td>7</td><td>AS보증 기간이 어떻게 되나요?</td><td>김지훈</td><td>2024.05.26</td><td>답변대기중</td></tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <tr><td>6</td><td>무게가 어떻게 되나요?</td><td>김지훈</td><td>2024.05.26</td><td>답변대기중</td></tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <tr><td>5</td><td>단체 주문도 가능할까요?</td><td>김지훈</td><td>2024.05.25</td><td>답변완료✔</td></tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <tr><td>4</td><td>색상 문의 드립니다.</td><td>김지훈</td><td>2024.05.24</td><td>답변완료✔</td></tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <tr><td>3</td><td>사이즈 문의 드립니다.</td><td>김지훈</td><td>2024.05.23</td><td>답변완료✔</td></tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <tr><td>2</td><td>제품의 추가 입고는 언제되나요?</td><td>김지훈</td><td>2024.05.22</td><td>답변대기중</td></tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <tr><td>1</td><td>제품 문의 드립니다.</td><td>김지훈</td><td>2024.05.21</td><td>답변완료✔</td></tr>&ndash;%&gt;--%>
+<%--    </table>--%>
+<%--    <p> <a href="">&lt</a>--%>
+<%--        <a href="">1</a>--%>
+<%--        <a href="">2</a>--%>
+<%--        <a href="">3</a>--%>
+<%--        <a href="">4</a>--%>
+<%--        <a href="">5</a>--%>
+<%--        <a href="">6</a>--%>
+<%--        <a href="">7</a>--%>
+<%--        <a href="">8</a>--%>
+<%--        <a href="">9</a>--%>
+<%--        <a href="">10</a>--%>
+<%--        <a href="">&gt</a></p>--%>
+<%--    <button class="writeQnABtn" onclick="writeQnABtn()">제품문의작성</button>--%>
+<%--</div>--%>
 <jsp:include page="footer.jsp" flush="false" />
 </body>
 <script>

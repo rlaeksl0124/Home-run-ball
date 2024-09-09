@@ -114,8 +114,6 @@
                                     <button class="quantity_btn minus_btn"><i class="fas fa-minus"></i></button>
                                     <input type="text" name="cart_cnt" id="update_count" value="${cartDto.cart_cnt}" readonly/>
                                     <button class="quantity_btn plus_btn"><i class="fas fa-plus"></i></button>
-
-                                        <%--                                    <button class="quantity_modify_btn"  >변경</button>--%>
                                 </form>
                             </div>
                         </td>
@@ -155,9 +153,16 @@
         <tr>
             <td colspan="7" class="btnStyle">
                 <form action="" id="orderForm" method="post">
-                    <button type="button" class="order_Btn" id="order_Select_Btn">선택상품 주문</button>
+                    <button type="button" class="order_Btn " id="order_Select_Btn" data-cid="${cartDto.c_id}"
+                            data-pdid="${cartDto.pd_id}" data-sizecd="${cartDto.pd_clsf_code}" data-count="${cartDto.cart_cnt}">선택상품 주문</button>
                     <button type="button" class="order_Btn" id="order_All_Btn">전체상품 주문</button>
                 </form>
+<%--                <form action="/order" method="post" class="order_selected_form">--%>
+<%--                    <input type="hidden" name="c_id" class="order_c_id" value="${c_id}"/>--%>
+<%--                    <input type="hidden" name="pd_id" class="order_pd_id" value="${pd_id}"/>--%>
+<%--                    <input type="hidden" name="pd_clsf_code" class="order_pd_clsf_code" value="${pd_clsf_code}"/>--%>
+<%--                    <input type="hidden" name="cart_cnt" class="order_count" value="${cartDto.cart_cnt}"/>--%>
+<%--                </form>--%>
             </td>
         </tr>
         </tfoot>
@@ -175,28 +180,34 @@
             $(this).text(formatValue + '원');
         })
 
+
         /* 선택주문하기 버튼을 누를경우 주문으로 넘기기 */
         $('#order_Select_Btn').on("click", function (){
             let selectedItems = [];
             let orderForm = $('#orderForm');
 
+            console.log(select);
+            orderForm.find('input[type="hidden"]').remove();
+
             // 선택된 각 체크박스의 부모 요소인 <tr>을 찾아 그 안의 데이터를 가져옴
             $('input:checkbox[name=checkboxlength]:checked').each(function(){
-                let c_id = $(this).closest('.product-row').find('.deleteBtn').data("cid");
-                let pd_id = $(this).closest('.product-row').find('.deleteBtn').data("pdid");
-                let pd_clsf_code = $(this).closest('.product-row').find('.deleteBtn').data("sizecd");
+                let c_id = $(this).data("cid");
+                let pd_id = $(this).data("pdid");
+                let pd_clsf_code = $(this).data("sizecd");
+                let cartCnt = $(this).data("count");
                 selectedItems.push({
                     c_id: c_id,
                     pd_id: pd_id,
-                    pd_clsf_code: pd_clsf_code
+                    pd_clsf_code: pd_clsf_code,
+                    cartCnt: cartCnt
                 });
             });
 
-
+            console.log(selectedItems);
             selectedItems.forEach(function(item) {
                 $('<input>').attr({
                     type: 'hidden',
-                    // name: 'selectedItems',
+                    name: 'selectedItems',
                     value: JSON.stringify(item)
                 }).appendTo(orderForm);
             });
